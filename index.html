@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="icon" href="./favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PCL Github Info Dashboard</title>
-        <style>
-            body {
-                color: var(--color-text-1);
-                background-color: var(--color-bg-1);
-                user-select: none;
-            }
-            div.arco-card {
-                box-shadow: 0 4px 10px rgb(var(--gray-2));
-                border-radius: 6px;
-            }
-            div.arco-card-body {
-                min-height: calc(100% - 46px - 32px);
-                max-height: calc(100% - 46px - 32px);
-            }
-        </style>
-    </head>
-    <body>
-        <div id="app"></div>
-        <script type="module" src="./src/main.js"></script>
-        <script src="./chart.js"></script>
-    </body>
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="./favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PCL Github Info Dashboard</title>
+    <style>
+        body {
+            color: var(--color-text-1);
+            background-color: var(--color-bg-1);
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        div.arco-card {
+            box-shadow: 0 4px 10px rgb(var(--gray-2));
+            border-radius: 6px;
+        }
+
+        div.arco-card-body {
+            min-height: calc(100% - 46px - 32px);
+            max-height: calc(100% - 46px - 32px);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="module" src="http://192.168.1.22:8080/src/main.js"></script>
+    <script src="./public/chart.js"></script>
+</body>
+
 </html>

@@ -1,3 +1,7 @@
+function getQueryParam(name, url) {
+    const urlParams = new URLSearchParams(url.split('?')[1]);
+    return urlParams.get(name);
+}
 export const fetchAllIssues = () => {
     return new Promise((resolve, reject) => {
         const fetchIssues = (url, issues) => {
@@ -16,24 +20,31 @@ export const fetchAllIssues = () => {
                     }
                     // Prase Link Header, For Paging
                     const linkHeader = response.headers.get("link");
-                    let nextPageLink = null;
+                    let lastPageLink = null;
                     if (linkHeader) {
                         const links = linkHeader.split(",");
-                        const linkContainNext = links.find((link) =>
-                            link.includes('rel="next"')
+                        const linkLast = links.find((link) =>
+                            link.includes('rel="last"')
                         );
-                        if (linkContainNext != undefined) {
+                        if (linkLast != undefined) {
                             // Verify whether there is the nextpage url, if yes, prase the url
-                            nextPageLink = linkContainNext
+                            lastPageLink = linkLast
                                 .split(";")[0]
                                 .trim()
                                 .slice(1, -1);
+                            lastPage = getQueryParam("page", lastPageLink)
+                            console.debug(lastPage)
                         }
                     }
                     const data = await response.json();
                     const combinedIssues = issues.concat(data);
-                    if (nextPageLink) {
-                        fetchIssues(nextPageLink, combinedIssues);
+                    if (lastPageLink) {
+                        for (let i = 1; i <= lastPage; i++) {
+                            fetchIssues(
+                                lastPageLink.replace(`page=${lastPage}`, `page=${i}`),
+                                combinedIssues
+                            );
+                        }
                     } else {
                         resolve(combinedIssues);
                     }
