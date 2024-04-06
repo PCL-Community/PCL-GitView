@@ -27,7 +27,7 @@ setInterval(
             <template #breadcrumb>
                 <a-breadcrumb>
                     <a-breadcrumb-item>
-                        <a-link href="https://github.com/PCL-Community"
+                        <a-link href="https://pcl-community.github.io/"
                             >PCL-Community</a-link
                         >
                     </a-breadcrumb-item>
