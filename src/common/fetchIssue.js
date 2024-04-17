@@ -18,9 +18,11 @@ export const fetchAllIssues = () => {
                     let lastPageLink = null;
                     if (linkHeader) {
                         const links = linkHeader.split(",");
+                        console.debug(links);
                         const linkLast = links.find((link) =>
                             link.includes('rel="last"')
                         );
+                        console.debug(linkLast)
                         if (linkLast != undefined) {
                             // Verify whether there is the nextpage url, if yes, prase the url
                             lastPageLink = linkLast
