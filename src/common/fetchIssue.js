@@ -5,12 +5,7 @@ function getQueryParam(name, url) {
 export const fetchAllIssues = () => {
     return new Promise((resolve, reject) => {
         const fetchIssues = (url, issues) => {
-            fetch(url, {
-                headers: {
-                    Authorization:
-                        `token ${process.env.VUE_APP_GITHUB_PAT}`,
-                },
-            })
+            fetch(url) // TODO：删了个 Header，别忘记加回去 
                 .then(async (response) => {
                     if (!response.ok) {
                         reject({
