@@ -42,7 +42,7 @@ export const fetchAllIssues = () => {
                     let combinedIssues = await response.json();
                     const promises = [];
                     for (let i = 1; i <= Number(lastPage); i++) {
-                        const promise = setTimeout(fetchOne(
+                        const promise = setTimeout(() => fetchOne(
                             lastPageLink.replace(`page=${lastPage}`, `page=${i}`))
                             .then(data => {
                                 combinedIssues = combinedIssues.concat(data);
