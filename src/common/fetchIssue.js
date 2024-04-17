@@ -39,18 +39,25 @@ export const fetchAllIssues = () => {
                         .slice(1, -1);
                     const lastPage = getQueryParam("page", lastPageLink);
                     console.debug(lastPage);
-                    const data = await response.json();
-                    let combinedIssues = data;
-                    if (lastPageLink) {
-                        for (let i = 1; i <= Number(lastPage); i++) {
-                            const data = await fetchOne(
-                                lastPageLink.replace(`page=${lastPage}`, `page=${i}`)
-                            );
-                            combinedIssues = combinedIssues.concat(data);
-                        }
-                    } else {
-                        resolve(combinedIssues);
+                    let combinedIssues = await response.json();
+                    const promises = [];
+                    for (let i = 1; i <= Number(lastPage); i++) {
+                        const promise = fetchOne(
+                            lastPageLink.replace(`page=${lastPage}`, `page=${i}`))
+                            .then(data => {
+                                combinedIssues = combinedIssues.concat(data);
+                            });
+                        promises.push(promise);
                     }
+                    Promise.all(promises).then(() => {
+                        console.log("请求已完成。");
+                        resolve(combinedIssues);
+                    }).catch((error) => {
+                        reject({
+                            status: 0,
+                            message: "请求时出错：" + error.message,
+                        })
+                    })
                 })
                 .catch((error) => {
                     reject({
