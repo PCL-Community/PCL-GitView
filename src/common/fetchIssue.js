@@ -2,7 +2,7 @@ function getQueryParam(name, url) {
     const urlParams = new URLSearchParams(url.split('?')[1]);
     return urlParams.get(name);
 }
-function fetchOne(url) {
+function fetchOne(url, delay) {
     return new Promise((resolve, reject) => {
         fetch(url)
             .then(async (response) => {
@@ -42,11 +42,11 @@ export const fetchAllIssues = () => {
                     let combinedIssues = await response.json();
                     const promises = [];
                     for (let i = 1; i <= Number(lastPage); i++) {
-                        const promise = fetchOne(
+                        const promise = setTimeout(fetchOne(
                             lastPageLink.replace(`page=${lastPage}`, `page=${i}`))
                             .then(data => {
                                 combinedIssues = combinedIssues.concat(data);
-                            });
+                            }), 500 * i);
                         promises.push(promise);
                     }
                     Promise.all(promises).then(() => {
