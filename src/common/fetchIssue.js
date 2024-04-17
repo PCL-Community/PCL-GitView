@@ -43,7 +43,7 @@ export const fetchAllIssues = () => {
                     let combinedIssues = data;
                     if (lastPageLink) {
                         for (let i = 1; i <= Number(lastPage); i++) {
-                            data = await fetchOne(
+                            const data = await fetchOne(
                                 lastPageLink.replace(`page=${lastPage}`, `page=${i}`)
                             );
                             combinedIssues = combinedIssues.concat(data);
