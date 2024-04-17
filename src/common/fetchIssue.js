@@ -23,15 +23,13 @@ export const fetchAllIssues = () => {
                             link.includes('rel="last"')
                         );
                         console.debug(linkLast)
-                        if (linkLast != undefined) {
-                            // Verify whether there is the nextpage url, if yes, prase the url
-                            lastPageLink = linkLast
-                                .split(";")[0]
-                                .trim()
-                                .slice(1, -1);
-                            lastPage = getQueryParam("page", lastPageLink)
-                            console.debug(lastPage)
-                        }
+                        lastPageLink = linkLast
+                            .split(";")[0]
+                            .trim()
+                            .slice(1, -1);
+                        console.debug(lastPageLink)
+                        lastPage = getQueryParam("page", lastPageLink)
+                        console.debug(lastPage)
                     }
                     const data = await response.json();
                     const combinedIssues = issues.concat(data);
