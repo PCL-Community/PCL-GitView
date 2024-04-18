@@ -2,24 +2,24 @@ function getQueryParam(name, url) {
     const urlParams = new URLSearchParams(url.split('?')[1]);
     return urlParams.get(name);
 }
-function fetchOne(url, timeout = 1000) {
+function fetchOne(url) {
     return new Promise((resolve, reject) => {
-        setTimeout(
-            fetch(url)
-                .then(async (response) => {
-                    if (!response.ok) {
-                        if (response.status === 403) {
-                            fetchOne(url, 3 * timeout)
-                        }
-                        reject({
-                            status: response.status,
-                            message: "Error on fetch data",
-                        });
+        fetch(url)
+            .then(async (response) => {
+                if (!response.ok) {
+                    if (response.status === 403) {
+                        fetchOne(url)
                     }
-                    const data = await response.json();
-                    resolve(data);
-                }), timeout)
-    })
+                    reject({
+                        status: response.status,
+                        message: "Error on fetch data",
+                    });
+                }
+                const data = await response.json();
+                resolve(data);
+            })
+    }
+    )
 }
 export const fetchAllIssues = () => {
     return new Promise((resolve, reject) => {
@@ -52,8 +52,7 @@ export const fetchAllIssues = () => {
                     const promises = [];
                     for (let i = 1; i <= Number(lastPage); i++) {
                         const promise = fetchOne(
-                            lastPageLink.replace(`page=${lastPage}`, `page=${i}`),
-                            500 * i)
+                            lastPageLink.replace(`page=${lastPage}`, `page=${i}`))
                             .then(data => {
                                 combinedIssues = combinedIssues.concat(data);
                             })
