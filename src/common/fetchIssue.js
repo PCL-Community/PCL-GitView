@@ -24,7 +24,7 @@ function fetchOne(url, timeout = 1000) {
 export const fetchAllIssues = () => {
     return new Promise((resolve, reject) => {
         const fetchIssues = (url) => {
-            fetch(url, headers = {
+            fetch(url, {
                 'Authorization': `token ${process.env.GITHUB_TOKEN}`
             })
                 .then(async (response) => {
