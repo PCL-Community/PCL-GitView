@@ -49,7 +49,6 @@ export const fetchAllIssues = () => {
                         .trim()
                         .slice(1, -1);
                     const lastPage = getQueryParam("page", lastPageLink);
-                    console.debug(lastPage);
                     let combinedIssues = await response.json();
                     const promises = [];
                     for (let i = 1; i <= Number(lastPage); i++) {
