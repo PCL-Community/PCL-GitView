@@ -24,7 +24,9 @@ function fetchOne(url, timeout = 1000) {
 export const fetchAllIssues = () => {
     return new Promise((resolve, reject) => {
         const fetchIssues = (url) => {
-            fetch(url) // TODO：删了个 Header，别忘记加回去 
+            fetch(url, headers = {
+                'Authorization': `token ${process.env.GITHUB_TOKEN}`
+            })
                 .then(async (response) => {
                     if (!response.ok) {
                         reject({
