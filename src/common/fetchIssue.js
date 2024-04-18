@@ -25,7 +25,10 @@ export const fetchAllIssues = () => {
     return new Promise((resolve, reject) => {
         const fetchIssues = (url) => {
             fetch(url, {
-                'Authorization': `token ${process.env.GITHUB_TOKEN}`
+                headers: {
+                    Authorization:
+                        `token ${process.env.VUE_APP_GITHUB_PAT}`,
+                },
             })
                 .then(async (response) => {
                     if (!response.ok) {
