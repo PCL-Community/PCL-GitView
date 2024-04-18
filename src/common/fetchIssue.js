@@ -61,7 +61,6 @@ export const fetchAllIssues = () => {
                         promises.push(promise);
                     }
                     Promise.all(promises).then(() => {
-                        console.log("请求已完成。");
                         resolve(combinedIssues);
                     }).catch((error) => {
                         reject({
