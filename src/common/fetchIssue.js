@@ -7,9 +7,6 @@ function fetchOne(url) {
         fetch(url)
             .then(async (response) => {
                 if (!response.ok) {
-                    if (response.status === 403) {
-                        fetchOne(url)
-                    }
                     reject({
                         status: response.status,
                         message: "Error on fetch data",
