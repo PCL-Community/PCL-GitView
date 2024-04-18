@@ -4,7 +4,12 @@ function getQueryParam(name, url) {
 }
 function fetchOne(url) {
     return new Promise((resolve, reject) => {
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization:
+                    `token ${process.env.VUE_APP_GITHUB_PAT}`,
+            },
+        })
             .then(async (response) => {
                 if (!response.ok) {
                     reject({
