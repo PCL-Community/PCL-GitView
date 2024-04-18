@@ -7,7 +7,7 @@ function fetchOne(url) {
         fetch(url, {
             headers: {
                 Authorization:
-                    `token ${process.env.VUE_APP_GITHUB_PAT}`,
+                    `token ${process.env.VUE_APP_GITHUB_PAT || import.meta.env.VITE_GITHUB_PAT}`,
             },
         })
             .then(async (response) => {
@@ -29,7 +29,7 @@ export const fetchAllIssues = () => {
             fetch(url, {
                 headers: {
                     Authorization:
-                        `token ${process.env.VUE_APP_GITHUB_PAT}`,
+                        `token ${process.env.VUE_APP_GITHUB_PAT || import.meta.env.VITE_GITHUB_PAT}`,
                 },
             })
                 .then(async (response) => {
